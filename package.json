@@ -1,0 +1,24 @@
+{
+  "name": "trabalho-final-ppi",
+  "version": "1.0.0",
+  "description": "TRABALHO FINAL PPI",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jovedii/Trabalho-Final-PPI.git"
+  },
+  "author": "Guilherme Jovedi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jovedii/Trabalho-Final-PPI/issues"
+  },
+  "homepage": "https://github.com/Jovedii/Trabalho-Final-PPI#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
