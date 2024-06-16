@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Principal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        li {
+            border: solid 1px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="menu.html">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="cadastroInteressados.html">Cadastrar interessados</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="cadastroPets.html">Cadastrar pets</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="cadastroAdocao.html">Cadastrar adoção</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/listaDados.html">Listar cadastrados</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout" tabindex="-1" aria-disabled="true">Sair</a>
+        </li>
+    </ul>
+    <div class="container mt-4">
+        <h1>SEJA BEM-VINDO AO PET SHOP</h1>
+        <div id="ultimoAcesso">
+            <!-- Aqui será inserida a data de último acesso -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          const ultimoAcesso = document.getElementById('ultimoAcesso');
+          const ultimoAcessoCookie = document.cookie.split('; ').find(row => row.startsWith('ultimoAcesso='));
+          if (ultimoAcessoCookie) {
+              const dataUltimoAcesso = ultimoAcessoCookie.split('=')[1];
+              ultimoAcesso.innerHTML = `<p>Seu último acesso foi em ${dataUltimoAcesso}</p>`;
+          }
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Dados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        li{
+            border: solid 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Lista de Interessados</h2>
+        <ul id="listaInteressados" class="list-group mb-4"></ul>
+
+        <h2>Lista de Pets</h2>
+        <ul id="listaPets" class="list-group mb-4"></ul>
+
+        <h2>Lista de Adoções</h2>
+        <ul id="listaAdocoes" class="list-group mb-4"></ul>
+
+        <a href="menu.html" class="btn btn-secondary">Voltar ao Menu</a>
+    </div>
+
+    <script>
+        async function fetchData() {
+            try {
+                let response = await fetch('/dadosInteressados');
+                let interessados = await response.json();
+                let listaInteressados = document.getElementById('listaInteressados');
+                listaInteressados.innerHTML = '';
+                interessados.forEach((interessado, index) => {
+                    let li = document.createElement('li');
+                    li.classList.add('list-group-item');
+                    li.textContent = `Nome: ${interessado.nome}, Email: ${interessado.email}, Telefone: ${interessado.telefone}`;
+
+                    const btnExcluir = document.createElement('button');
+                    btnExcluir.className = 'btn btn-danger btn-sm ms-2';
+                    btnExcluir.textContent = 'Excluir';
+                    btnExcluir.addEventListener('click', async () => {
+                        try {
+                            await fetch(`/excluirInteressado/${index}`, { method: 'DELETE' });
+                            li.remove();
+                        } catch (error) {
+                            console.error('Erro ao excluir interessado:', error);
+                        }
+                    });
+                    li.appendChild(btnExcluir);
+                    listaInteressados.appendChild(li);
+                });
+
+                response = await fetch('/dadosPets');
+                let pets = await response.json();
+                let listaPets = document.getElementById('listaPets');
+                listaPets.innerHTML = '';
+                pets.forEach((pet, index) => {
+                    let li = document.createElement('li');
+                    li.classList.add('list-group-item');
+                    li.textContent = `Nome: ${pet.nome}, Raça: ${pet.raca}, Idade: ${pet.idade} anos`;
+
+                    const btnExcluir = document.createElement('button');
+                    btnExcluir.className = 'btn btn-danger btn-sm ms-2';
+                    btnExcluir.textContent = 'Excluir';
+                    btnExcluir.addEventListener('click', async () => {
+                        try {
+                            await fetch(`/excluirPet/${index}`, { method: 'DELETE' });
+                            li.remove();
+                        } catch (error) {
+                            console.error('Erro ao excluir pet:', error);
+                        }
+                    });
+                    li.appendChild(btnExcluir);
+                    listaPets.appendChild(li);
+                });
+
+                response = await fetch('/dadosAdocoes');
+                let adocoes = await response.json();
+                let listaAdocoes = document.getElementById('listaAdocoes');
+                listaAdocoes.innerHTML = '';
+                adocoes.forEach((adocao, index) => {
+                    let li = document.createElement('li');
+                    li.classList.add('list-group-item');
+                    li.textContent = `Interessado: ${adocao.interessado}, Pet: ${adocao.pet}, Data: ${adocao.data}`;
+
+                    const btnExcluir = document.createElement('button');
+                    btnExcluir.className = 'btn btn-danger btn-sm ms-2';
+                    btnExcluir.textContent = 'Excluir';
+                    btnExcluir.addEventListener('click', async () => {
+                        try {
+                            await fetch(`/excluirAdocao/${index}`, { method: 'DELETE' });
+                            li.remove();
+                        } catch (error) {
+                            console.error('Erro ao excluir adoção:', error);
+                        }
+                    });
+                    li.appendChild(btnExcluir);
+                    listaAdocoes.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Erro ao buscar dados:', error);
+            }
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>

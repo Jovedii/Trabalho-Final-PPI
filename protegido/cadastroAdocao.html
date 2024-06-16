@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Adoção</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastro de Adoção</h2>
+        <form id="formAdocao" action="/cadastroAdocao" method="post">
+            <div class="mb-3">
+                <label for="interessado" class="form-label">Interessado:</label>
+                <select class="form-select" id="interessado" name="interessado" required>
+                    <option value="">Selecione um interessado</option>
+                    <!-- As opções serão preenchidas dinamicamente pelo JavaScript -->
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="pet" class="form-label">Pet:</label>
+                <select class="form-select" id="pet" name="pet" required>
+                    <option value="">Selecione um pet</option>
+                    <!-- As opções serão preenchidas dinamicamente pelo JavaScript -->
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar Adoção</button>
+        </form>
+        <a href="menu.html" class="btn btn-secondary">Voltar ao Menu</a>
+    </div>
+    <script>
+        async function fetchInteressados() {
+            try {
+                const response = await fetch('/dadosInteressados');
+                const interessados = await response.json();
+                const selectInteressado = document.getElementById('interessado');
+                interessados.forEach(interessado => {
+                    const option = document.createElement('option');
+                    option.value = interessado.nome;
+                    option.textContent = interessado.nome;
+                    selectInteressado.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Erro ao buscar interessados:', error);
+            }
+        }
+
+        async function fetchPets() {
+            try {
+                const response = await fetch('/dadosPets');
+                const pets = await response.json();
+                const selectPet = document.getElementById('pet');
+                pets.forEach(pet => {
+                    const option = document.createElement('option');
+                    option.value = pet.nome;
+                    option.textContent = pet.nome;
+                    selectPet.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Erro ao buscar pets:', error);
+            }
+        }
+
+        fetchInteressados();
+        fetchPets();
+    </script>
+</body>
+</html>
